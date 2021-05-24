@@ -61,11 +61,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="nfo">NFO @lang('torrent.file') (@lang('torrent.optional'))</label>
-                        <input class="upload-form-file" type="file" accept=".nfo" name="nfo">
-                    </div>
-
-                    <div class="form-group">
                         <label for="name">@lang('torrent.title')</label>
                         <label for="title"></label>
                         <input type="text" name="name" id="title" class="form-control" value="{{ !empty($title) ? $title : old('name') }}" required>

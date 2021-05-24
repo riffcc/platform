@@ -23,7 +23,7 @@
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-up text-green"></i>
-                    @lang('common.upload') : {{ auth()
+                    @lang('common.uploaded') : {{ auth()
                         ->user()
                         ->getUploaded() }}
                 </span>
@@ -31,25 +31,9 @@
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-down text-red"></i>
-                    @lang('common.download') : {{ auth()
+                    @lang('common.downloaded') : {{ auth()
                         ->user()
                         ->getDownloaded() }}
-                </span>
-            </li>
-            <li>
-                <span class="badge-user text-bold">
-                    <i class="{{ config('other.font-awesome') }} fa-sync-alt text-blue"></i>
-                    @lang('common.ratio') : {{ auth()
-                        ->user()
-                        ->getRatioString() }}
-                </span>
-            </li>
-            <li>
-                <span class="badge-user text-bold">
-                    <i class="{{ config('other.font-awesome') }} fa-exchange text-orange"></i>
-                    @lang('common.buffer') : {{ auth()
-                        ->user()
-                        ->untilRatio(config('other.ratio')) }}
                 </span>
             </li>
             <li>
@@ -78,17 +62,6 @@
             </li>
             <li>
                 <span class="badge-user text-bold">
-                    <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"></i>
-                    <a href="#" title="@lang('torrent.hit-and-runs')">
-                        <span class="text-blue"> @lang('common.warnings'):</span>
-                    </a>
-                    {{ auth()
-                        ->user()
-                        ->getWarning() }}
-                </span>
-            </li>
-            <li>
-                <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-coins text-gold"></i>
                     <a href="{{ route('bonus') }}" title="@lang('user.my-bonus-points')">
                         <span class="text-blue"> @lang('bon.bon'):</span>
@@ -96,16 +69,6 @@
                     {{ auth()
                         ->user()
                         ->getSeedbonus() }}
-                </span>
-            </li>
-            <li>
-                <span class="badge-user text-bold">
-                    <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
-                    <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}"
-                        title="@lang('user.my-fl-tokens')">
-                        <span class="text-blue"> @lang('common.fl_tokens') :</span>
-                    </a>
-                    {{ auth()->user()->fl_tokens }}
                 </span>
             </li>
         </ul>

@@ -45,6 +45,7 @@ return [
     'newbie'                 => 'New To The Game',
     'not-a-member'           => 'Not yet a member ? Signup in less than 30s.',
     'not-activated'          => 'This account has not been activated and is still in validating group. Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.',
+    'open-reg'               => 'It is currently open registration. An invite is not required.',
     'password'               => 'Password',
     'proof-image'            => 'Proof Image URL',
     'proof-image-title'      => 'Links to profile screenshots',

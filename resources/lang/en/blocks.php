@@ -13,33 +13,33 @@
 
 return [
     // Chat
-    'chatbox'          => 'Chat Box',
+    'chatbox'          => 'The Feed',
     'click'            => 'Click',
     'to-enable-editor' => 'to enable editor',
 
     // Featured Torrents
     'featured-by'             => 'Featured by',
-    'featured-torrents'       => 'Featured Torrents',
-    'featured-torrents-intro' => 'Get Them While You Can!',
-    'featured-until'          => 'This is a featured torrent until',
+    'featured-torrents'       => 'Featured releases',
+    'featured-torrents-intro' => 'The best of Riff.CC',
+    'featured-until'          => 'This is a featured release until',
 
     // Latest Torrents
-    'top-torrents' => 'Top Torrents',
+    'top-torrents' => 'Top releases',
 
     // Latest Posts
-    'latest-posts' => 'Latest Posts',
+    'latest-posts' => 'Latest posts',
 
     // Latest Topics
-    'latest-topics' => 'Latest Topics',
+    'latest-topics' => 'Latest topics',
 
     // Users Online
     'active-in-last' => 'Active in last',
-    'users-online'   => 'Users Online',
+    'users-online'   => 'Users online',
 
     // News/Articles
-    'check-news' => 'Latest News',
-    'new-news'   => 'New News',
+    'check-news' => 'Latest news',
+    'new-news'   => 'New article',
 
     // Top Torrents
-    'new-torrents' => 'New Torrents',
+    'new-torrents' => 'New releases',
 ];

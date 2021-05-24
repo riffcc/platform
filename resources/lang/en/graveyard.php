@@ -25,7 +25,7 @@ return [
     'pending'            => 'Pending',
     'resurrect'          => 'Resurrect',
     'resurrect-date'     => 'Resurrect Date',
-    'reward'             => 'Freeleech tokens',
+    'reward'             => 'Freecopy tokens',
     'rewarded'           => 'Rewarded',
     'seedtime-goal'      => 'Seedtime Goal',
 ];

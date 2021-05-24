@@ -12,7 +12,6 @@
             </a>
         </li>
 
-
         <li class="hoe-has-menu">
             <a>
                 <i class="{{ config('other.font-awesome') }} fa-download" style=" font-size: 18px; color: #ffffff;"></i>
@@ -67,43 +66,37 @@
             </ul>
         </li>
 
-
-        <li class="hoe-has-menu">
-            <a>
-                <i class="{{ config('other.font-awesome') }} fa-user" style=" font-size: 18px; color: #ffffff;"></i>
-                <span class="menu-text">@lang('common.other')</span>
+        <li>
+            <a href="{{ route('playlists.index') }}">
+                <i class="{{ config('other.font-awesome') }} fa-cut" style=" font-size: 18px; color: #ffffff;"></i>
+                <span class="menu-text">Collages</span>
                 <span class="selected"></span>
             </a>
-            <ul class="hoe-sub-menu">
-
-                <li>
-                    <a href="{{ route('playlists.index') }}">
-                        <span class="menu-text">Collages</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('stats') }}">
-                        <span class="menu-text">Riff.CC Stats</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('forums.index') }}">
-                        <span class="menu-text">@lang('forum.forums')</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('rss.index') }}">
-                        <span class="menu-text">@lang('rss.rss')</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-
-            </ul>
         </li>
 
+        <li>
+            <a href="{{ route('stats') }}">
+                <i class="{{ config('other.font-awesome') }} fa-chart-line" style=" font-size: 18px; color: #ffffff;"></i>
+                <span class="menu-text">Riff.CC Stats</span>
+                <span class="selected"></span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ route('forums.index') }}">
+                <i class="{{ config('other.font-awesome') }} fa-users" style=" font-size: 18px; color: #ffffff;"></i>
+                <span class="menu-text">@lang('forum.forums')</span>
+                <span class="selected"></span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ route('rss.index') }}">
+                 <i class="{{ config('other.font-awesome') }} fa-rss" style=" font-size: 18px; color: #ffffff;"></i>
+                <span class="menu-text">@lang('rss.rss')</span>
+                <span class="selected"></span>
+            </a>
+        </li>
 
         <li>
             <a href="{{ config('other.rules_url') }}">

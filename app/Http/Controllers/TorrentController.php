@@ -1023,6 +1023,8 @@ class TorrentController extends Controller
         $torrent->type_id = $request->input('type_id');
         $torrent->resolution_id = $request->input('resolution_id');
         $torrent->mediainfo = $request->input('mediainfo');
+        $torrent->stream_id = $request->input('stream_id');
+        $torrent->cover_uploaded = $request->input('cover_uploaded');
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');

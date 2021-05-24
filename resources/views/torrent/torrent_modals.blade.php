@@ -1,3 +1,47 @@
+@if ( !empty($torrent->stream_id))
+<div class="modal fade" id="modal_streaming_ipfs" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dark">
+        <div class="modal-content">
+            <meta charset="utf-8">
+            <title>Trying to stream {{ $torrent->name }}</title>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
+                        aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+<style>
+.streaming_ipfs_size {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+</style>
+    @if ($torrent->category_id == 1)
+                <video class="streaming_ipfs_size" controls>
+                    <source src="https://cdn.riff.cc/ipfs/{{ $torrent->stream_id }}" type="video/mp4">
+                    <track label="English" kind="subtitles" srclang="en" src="https://u.riff.cc/subs/{{ $torrent->id }}.vtt" default>
+                </video>
+                        <div class="modal-footer">
+                            <button class="btn btn-sm btn-default" type="button"
+                                data-dismiss="modal">@lang('common.close')</button>
+                        </div>
+    @endif
+
+    @if ($torrent->category_id == 3)
+                <audio class="streaming_ipfs_size" controls>
+                    <source src="https://cdn.riff.cc/ipfs/{{ $torrent->stream_id }}" type="application/vnd.apple.mpegurl">
+                </audio>
+                        <div class="modal-footer">
+                            <button class="btn btn-sm btn-default" type="button"
+                                data-dismiss="modal">@lang('common.close')</button>
+                        </div>
+    @endif
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+
 <div class="modal fade" id="modal_torrent_report" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dark">
         <div class="modal-content">

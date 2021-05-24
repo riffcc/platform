@@ -136,7 +136,27 @@
                             <textarea name="mediainfo" cols="30" rows="10" class="form-control">{{ $torrent->mediainfo }}</textarea>
                         </label>
                     </div>
-    
+
+                    <div class="form-group">
+                        <label for="description">Streaming ID</label>
+                        <label>
+                            <input type="text" class="form-control" name="stream_id" value="{{ $torrent->stream_id }}">
+                        </label>
+                    </div>
+
+                    <label for="hidden" class="control-label">Cover uploaded?</label>
+                    <div class="radio-inline">
+                        <label><input type="radio" name="cover_uploaded" @if ($torrent->cover_uploaded == 1) checked
+                            @endif value="1">Yes</label>
+                    </div>
+                    <div class="radio-inline">
+                        <label><input type="radio" name="cover_uploaded" @if ($torrent->cover_uploaded == 0)
+checked
+                            @endif value="0">No</label>
+                    </div>
+                    <br>
+                    <br>
+
                     <label for="hidden" class="control-label">@lang('common.anonymous')?</label>
                     <div class="radio-inline">
                         <label><input type="radio" name="anonymous" @if ($torrent->anon == 1) checked

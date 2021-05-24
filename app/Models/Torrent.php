@@ -29,6 +29,7 @@ use voku\helper\AntiXSS;
 /**
  * App\Models\Torrent.
  *
+ * @property varchar                                                                $stream_id
  * @property int                                                                    $id
  * @property string                                                                 $name
  * @property string                                                                 $slug

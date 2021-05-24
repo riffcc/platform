@@ -75,9 +75,9 @@
         </li>
 
         <li>
-            <a href="{{ route('stats') }}">
-                <i class="{{ config('other.font-awesome') }} fa-chart-line" style=" font-size: 18px; color: #ffffff;"></i>
-                <span class="menu-text">Riff.CC Stats</span>
+            <a href="https://discord.gg/Enuw4Skdnh">
+                <i class="{{ config('other.font-awesome') }} fa-discord" style=" font-size: 18px; color: #ffffff;"></i>
+                <span class="menu-text">Chat on Discord</span>
                 <span class="selected"></span>
             </a>
         </li>
@@ -91,6 +91,14 @@
         </li>
 
         <li>
+            <a href="{{ route('stats') }}">
+                <i class="{{ config('other.font-awesome') }} fa-chart-line" style=" font-size: 18px; color: #ffffff;"></i>
+                <span class="menu-text">Riff.CC Stats</span>
+                <span class="selected"></span>
+            </a>
+        </li>
+
+        <li>
             <a href="{{ config('other.faq_url') }}">
                 <i class="{{ config('other.font-awesome') }} fa-question-circle"
                     style=" font-size: 18px; color: #ffffff;"></i>
@@ -98,7 +106,7 @@
                 <span class="selected"></span>
             </a>
         </li>
-        
+
         @if (auth()->user()->group->is_modo)
             <li>
                 <a href="{{ route('staff.dashboard.index') }}">

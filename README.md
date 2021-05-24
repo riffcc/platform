@@ -39,5 +39,7 @@ If you discover any security related issues, please email benjamin@riff.cc inste
 ## <a name="thanks"></a> 🎉 Credits and Thanks
 
 * Unit3D and HDInnovations, without whom this would not have even happened.
+* public/img/default_featured.jpg - https://www.flickr.com/photos/astroporn/4999978603/
+* https://commons.wikimedia.org/wiki/File:Aerial_view_of_Love_valley_Cappadocia_from_hot_air_balloon_1510232_3_4_Compressor.jpg
 * The JetBrains team for generously providing key development tools
 <a href="https://www.jetbrains.com/?from=riff.cc"><img src="https://i.imgur.com/KgDXZV8.png" height="50px;"></a>

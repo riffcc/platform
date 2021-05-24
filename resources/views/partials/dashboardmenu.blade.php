@@ -89,6 +89,13 @@
                     <i class="{{ config('other.font-awesome') }} fa-chart-pie"></i> @lang('staff.polls')
                 </a>
             </li>
+            @if (auth()->user()->group->is_owner)
+                <li>
+                    <a href="{{ route('staff.promos.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-link"></i> Promo Links
+                    </a>
+                </li>
+            @endif
             <li>
                 <a href="{{ route('staff.rss.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-rss"></i> @lang('staff.rss')

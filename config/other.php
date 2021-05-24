@@ -33,7 +33,7 @@ return [
     |
     */
 
-    'title' => 'UNIT3D',
+    'title' => 'Riff.CC Alpha',
 
     /*
     |--------------------------------------------------------------------------
@@ -44,7 +44,7 @@ return [
     |
     */
 
-    'subTitle' => 'Built On Laravel',
+    'subTitle' => 'Free the world\'s culture.',
 
     /*
     |--------------------------------------------------------------------------
@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'email' => env('DEFAULT_OWNER_EMAIL', 'unit3d@none.com'),
+    'email' => env('DEFAULT_OWNER_EMAIL', 'benjamin@riff.cc'),
 
     /*
     |--------------------------------------------------------------------------
@@ -66,7 +66,7 @@ return [
     |
     */
 
-    'meta_description' => 'Built On Laravel',
+    'meta_description' => 'Free the world\'s culture.',
 
     /*
     |--------------------------------------------------------------------------
@@ -76,7 +76,7 @@ return [
     | Date Site Was Born
     |
     */
-    'birthdate' => 'December 30th 2017',
+    'birthdate' => 'December 17th 2020',
 
     /*
     |--------------------------------------------------------------------------
@@ -109,7 +109,7 @@ return [
     |
     */
 
-    'ratio' => 0.4,
+    'ratio' => 0,
 
     /*
     |--------------------------------------------------------------------------
@@ -139,8 +139,8 @@ return [
     | This will be the upload and download given to new members. (In Bytes!)
     | Default: 50GiB Upload and 1GiB Download
     */
-    'default_upload'   => '53687091200',
-    'default_download' => '1073741824',
+    'default_upload'   => '0',
+    'default_download' => '0',
 
     /*
     |--------------------------------------------------------------------------
@@ -191,7 +191,7 @@ return [
     |--------------------------------------------------------------------------
     | Example: 2
     */
-    'faq_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/pages/2',
+    'faq_url' => 'https://docs.riff.cc/faq',
 
     /*
     |--------------------------------------------------------------------------

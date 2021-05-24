@@ -22,7 +22,7 @@ return [
     |
     */
 
-    'subject' => 'Welcome to UNIT3D',
+    'subject' => 'Welcome to Riff.CC Alpha!',
 
     /*
     |--------------------------------------------------------------------------
@@ -33,7 +33,7 @@ return [
     |
     */
 
-    'message' => 'Welcome To [b]UNIT3D[/b].
+    'message' => 'Welcome To [b]Riff.CC Alpha[/b]. Media for the world. If you find yourself needing help, visit [url]https://docs.riff.cc[/url] or reply to this message. Enjoy!
 
-    - UNIT3D :space_invader:',
+    - Riff.CC :space_invader:',
 ];

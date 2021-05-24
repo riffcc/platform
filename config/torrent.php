@@ -33,7 +33,7 @@ return [
     |
     */
 
-    'source' => 'UNIT3D',
+    'source' => 'Riff.CC',
 
     /*
     |--------------------------------------------------------------------------
@@ -44,7 +44,7 @@ return [
     |
     */
 
-    'created_by'        => 'Edited by UNIT3D',
+    'created_by'        => 'Distributed by Riff.CC',
     'created_by_append' => true,
 
     /*
@@ -56,7 +56,7 @@ return [
     |
     */
 
-    'comment' => 'This torrent was downloaded from UNIT3D',
+    'comment' => 'This torrent was downloaded from Riff.CC',
 
     /*
     |--------------------------------------------------------------------------
@@ -67,6 +67,6 @@ return [
     |
     */
 
-    'magnet' => 0,
+    'magnet' => 1,
 
 ];

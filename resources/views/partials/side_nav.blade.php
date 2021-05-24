@@ -100,7 +100,7 @@
 
         <li>
             <a href="{{ config('other.rules_url') }}">
-                <i class="{{ config('other.font-awesome') }} fa-info-square"
+                <i class="{{ config('other.font-awesome') }} fa-balance-scale"
                     style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">@lang('common.rules')</span>
                 <span class="selected"></span>
@@ -108,7 +108,7 @@
         </li>
         <li>
             <a href="{{ config('other.faq_url') }}">
-                <i class="{{ config('other.font-awesome') }} fa-question-square"
+                <i class="{{ config('other.font-awesome') }} fa-question-circle"
                     style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">@lang('common.faq')</span>
                 <span class="selected"></span>

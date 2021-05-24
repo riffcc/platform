@@ -9,7 +9,11 @@
 ## 📝 Table of Contents
 
 1. [Introduction](#introduction)
-15. [Credits and Thanks](#thanks)
+2. [Chat](#chat)
+3. [Contributing](#contributing)
+4. [Licence](#licence)
+5. [Security](#security)
+6. [Credits and Thanks](#thanks)
 
 
 ## <a name="introduction"></a>Introduction
@@ -24,7 +28,7 @@ URL: https://discord.gg/Enuw4Skdnh
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md) for details.
 
-## <a name="license"></a> 📝 License
+## <a name="licence"></a> 📝 Licence
 
 Riff.CC Platform is open-sourced software licensed under the [GNU Affero General Public License v3.0](https://github.com/riffcc/platform/blob/master/LICENSE), the same licence as our upstream project.
 
@@ -34,5 +38,6 @@ If you discover any security related issues, please email benjamin@riff.cc inste
 
 ## <a name="thanks"></a> 🎉 Credits and Thanks
 
-* The JetBrains team for their generous providing of tools <a href="https://www.jetbrains.com/?from=riff.cc"><img src="https://i.imgur.com/KgDXZV8.png" height="50px;"></a>
 * Unit3D and HDInnovations, without whom this would not have even happened.
+* The JetBrains team for generously providing key development tools
+<a href="https://www.jetbrains.com/?from=riff.cc"><img src="https://i.imgur.com/KgDXZV8.png" height="50px;"></a>

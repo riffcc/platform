@@ -26,10 +26,10 @@ class LoginController extends Controller
     protected $redirectTo = '/';
 
     // Max Attempts Until Lockout
-    public $maxAttempts = 3;
+    public $maxAttempts = 8;
 
     // Minutes Lockout
-    public $decayMinutes = 60;
+    public $decayMinutes = 1;
 
     /**
      * LoginController Constructor.

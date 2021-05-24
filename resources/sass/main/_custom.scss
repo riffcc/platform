@@ -314,7 +314,7 @@ label {
 
 .img-thumbnail,
 body {
-    background-color: #cfcfcf;
+    background-color: transparent;
 }
 
 *,
@@ -360,7 +360,7 @@ a:focus {
 .img-thumbnail {
     padding: 4px;
     line-height: 1.46666667;
-    border: 1px solid #ddd;
+    border: 1px hidden #ddd;
     border-radius: 0;
     -webkit-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;

@@ -841,6 +841,15 @@ Route::group(['middleware' => 'language'], function () {
             });
         });
 
+        // Promo Signup Links
+        Route::group(['prefix' => 'promos'], function () {
+            Route::name('staff.promos.')->group(function () {
+                Route::get('/', 'PromoController@index')->name('index');
+                Route::post('/store', 'PromoController@store')->name('store');
+                Route::delete('/{id}/destroy', 'PromoController@destroy')->name('destroy');
+            });
+        });
+
         // Registered Seedboxes
         Route::group(['prefix' => 'seedboxes'], function () {
             Route::name('staff.seedboxes.')->group(function () {

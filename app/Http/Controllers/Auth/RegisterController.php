@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Promo;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendActivationMail;
 use App\Models\Group;
@@ -61,11 +62,18 @@ class RegisterController extends Controller
 
     public function register(Request $request, $code = null)
     {
-        // Make sure open reg is off and invite code exist and has not been used already
-        $key = Invite::where('code', '=', $code)->first();
-        if (\config('other.invite-only') == 1 && (! $key || $key->accepted_by !== null)) {
+        if (\config('other.invite-only') == 0) {
             return \redirect()->route('registrationForm', ['code' => $code])
-                ->withErrors(\trans('auth.invalid-key'));
+                ->withErrors(\trans('auth.open-reg'));
+        }
+
+        $key = Invite::where('code', '=', $code)->first();
+        $promo = Promo::where('code', '=', $code)->first();
+        if (! $promo || $promo->uses === $promo->max_uses) {
+            if (!$key || $key->accepted_by !== null) {
+                return \redirect()->route('registrationForm', ['code' => $code])
+                    ->withErrors(\trans('auth.invalid-key'));
+            }
         }
 
         $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
@@ -86,13 +94,13 @@ class RegisterController extends Controller
             if (\config('captcha.enabled') == false) {
                 $v = \validator($request->all(), [
                     'username' => 'required|alpha_dash|string|between:3,25|unique:users',
-                    'password' => 'required|string|between:8,16',
+                    'password' => 'required|string|between:8,64',
                     'email'    => 'required|string|email|max:70|blacklist|unique:users',
                 ]);
             } else {
                 $v = \validator($request->all(), [
                     'username' => 'required|alpha_dash|string|between:3,25|unique:users',
-                    'password' => 'required|string|between:8,16',
+                    'password' => 'required|string|between:8,64',
                     'email'    => 'required|string|email|max:70|blacklist|unique:users',
                     'captcha'  => 'hiddencaptcha',
                 ]);
@@ -100,13 +108,13 @@ class RegisterController extends Controller
         } elseif (\config('captcha.enabled') == false) {
             $v = \validator($request->all(), [
                 'username' => 'required|alpha_dash|string|between:3,25|unique:users',
-                'password' => 'required|string|between:8,16',
+                'password' => 'required|string|between:8,64',
                 'email'    => 'required|string|email|max:70|unique:users',
             ]);
         } else {
             $v = \validator($request->all(), [
                 'username' => 'required|alpha_dash|string|between:3,25|unique:users',
-                'password' => 'required|string|between:6,16',
+                'password' => 'required|string|between:6,64',
                 'email'    => 'required|string|email|max:70|unique:users',
                 'captcha'  => 'hiddencaptcha',
             ]);
@@ -117,20 +125,29 @@ class RegisterController extends Controller
                 ->withErrors($v->errors());
         }
         $user->save();
+
         $userPrivacy = new UserPrivacy();
         $userPrivacy->setDefaultValues();
         $userPrivacy->user_id = $user->id;
         $userPrivacy->save();
+
         $userNotification = new UserNotification();
         $userNotification->setDefaultValues();
         $userNotification->user_id = $user->id;
         $userNotification->save();
+
+        // Update The Invite Record
         if ($key) {
-            // Update The Invite Record
             $key->accepted_by = $user->id;
             $key->accepted_at = new Carbon();
             $key->save();
         }
+
+        // Update The Promo Record
+        if ($promo) {
+            $promo->increment('uses');
+        }
+
         // Handle The Activation System
         $token = \hash_hmac('sha256', $user->username.$user->email.Str::random(16), \config('app.key'));
         $userActivation = new UserActivation();
@@ -138,6 +155,7 @@ class RegisterController extends Controller
         $userActivation->token = $token;
         $userActivation->save();
         $this->dispatch(new SendActivationMail($user, $token));
+
         // Select A Random Welcome Message
         $profileUrl = \href_profile($user);
         $welcomeArray = [
@@ -153,6 +171,7 @@ class RegisterController extends Controller
         $this->chatRepository->systemMessage(
             $welcomeArray[$selected]
         );
+
         // Send Welcome PM
         $privateMessage = new PrivateMessage();
         $privateMessage->sender_id = 1;

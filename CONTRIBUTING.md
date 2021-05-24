@@ -1,6 +1,6 @@
 # Contributing
 
-Contributions are **welcome**. Please note, however, that most contributions to The Platform will be better if submitted to Unit3D. Only submit changes that do not fit in Unit3D's core.
+Contributions are **welcome**. Please note, however, that most contributions to The Platform should be submitted to [Unit3D CE](https://github.com/HDInnovations/UNIT3D-Community-Edition instead. Only submit changes that do not fit in Unit3D's core.
 
 We accept contributions via Pull Requests on [Github](https://github.com/riffcc/platform).
 

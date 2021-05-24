@@ -1,8 +1,8 @@
 # Contributing
 
-Contributions are **welcome**.
+Contributions are **welcome**. Please note, however, that most contributions to The Platform should be submitted to [Unit3D CE](https://github.com/HDInnovations/UNIT3D-Community-Edition instead. Only submit changes that do not fit in Unit3D's core.
 
-We accept contributions via Pull Requests on [Github](https://github.com/HDInnovations/UNIT3D).
+We accept contributions via Pull Requests on [Github](https://github.com/riffcc/platform).
 
 **Working on your first Pull Request?** You can learn how from this *free* series [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)\
 

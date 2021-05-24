@@ -91,22 +91,6 @@
         </li>
 
         <li>
-            <a href="{{ route('rss.index') }}">
-                 <i class="{{ config('other.font-awesome') }} fa-rss" style=" font-size: 18px; color: #ffffff;"></i>
-                <span class="menu-text">@lang('rss.rss')</span>
-                <span class="selected"></span>
-            </a>
-        </li>
-
-        <li>
-            <a href="{{ config('other.rules_url') }}">
-                <i class="{{ config('other.font-awesome') }} fa-balance-scale"
-                    style=" font-size: 18px; color: #ffffff;"></i>
-                <span class="menu-text">@lang('common.rules')</span>
-                <span class="selected"></span>
-            </a>
-        </li>
-        <li>
             <a href="{{ config('other.faq_url') }}">
                 <i class="{{ config('other.font-awesome') }} fa-question-circle"
                     style=" font-size: 18px; color: #ffffff;"></i>
@@ -114,6 +98,7 @@
                 <span class="selected"></span>
             </a>
         </li>
+        
         @if (auth()->user()->group->is_modo)
             <li>
                 <a href="{{ route('staff.dashboard.index') }}">

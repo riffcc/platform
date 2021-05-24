@@ -1,7 +1,7 @@
 <p align="center">
 <a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-8-f4645f.svg?style=flat-square" /></a> 
 <a href="https://github.com/riffcc/platform/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-AGPL%20v3.0-yellow.svg?style=flat-square" /></a>
-<a href="https://discord.gg/Enuw4Skdnh"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg?style=flat-square" /></a>
+<a href="https://discord.gg/Enuw4Skdnh"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20now-a29bfe.svg?style=flat-square" /></a>
 <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square"></a>
 </p>
 

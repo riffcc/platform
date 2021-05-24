@@ -2,7 +2,7 @@
     <div class="hoe-left-header" hoe-position-type="fixed">
         <a href="{{ route('home.index') }}">
             <div class="banner">
-                <i class="fal fa-tv-retro" style="display: inline;"></i>
+                <i style="display: inline;"><img src="https://riff.cc/static/media/logo-sq-tiny.png" width="50em" height="50em"></i>
             </div>
         </a>
         <span class="hoe-sidebar-toggle"><a href="#"></a></span>

@@ -44,18 +44,6 @@
                         <span class="selected"></span>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('subtitles.index') }}">
-                        <span class="menu-text">@lang('common.subtitles')</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('graveyard.index') }}">
-                        <span class="menu-text">@lang('graveyard.graveyard')</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
             </ul>
         </li>
 
@@ -90,32 +78,13 @@
 
                 <li>
                     <a href="{{ route('playlists.index') }}">
-                        <span class="menu-text">Playlists</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ route('albums.index') }}">
-                        <span class="menu-text">@lang('common.gallery')</span>
+                        <span class="menu-text">Collages</span>
                         <span class="selected"></span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('stats') }}">
-                        <span class="menu-text">@lang('common.extra-stats')</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('polls') }}">
-                        <span class="menu-text">@lang('poll.polls')</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('bonus_store') }}">
-                        <span class="menu-text">@lang('bon.bon') @lang('bon.store')</span>
+                        <span class="menu-text">Riff.CC Stats</span>
                         <span class="selected"></span>
                     </a>
                 </li>

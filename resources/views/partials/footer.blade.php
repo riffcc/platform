@@ -58,10 +58,10 @@
         <div class="col-md-2 l-footer-section">
             <h2 class="l-footer-section-title">@lang('common.other')</h2>
             <ul>
-                <li><a href="https://github.com/sponsors/HDVinnie" target="_blank"
-                        class="btn btn-xs btn-primary">@lang('common.sponsor')</a></li>
-                <li><a href="https://github.com/HDInnovations/UNIT3D" target="_blank"
-                        class="btn btn-xs btn-primary">@lang('common.powered-by')</a></li>
+                <li><a href="https://riff.cc" target="_blank"
+                        class="btn btn-xs btn-primary">Visit our main website</a></li>
+                <li><a href="https://docs.riff.cc" target="_blank"
+                        class="btn btn-xs btn-primary">View our documentation</a></li>
             </ul>
         </div>
     </div>

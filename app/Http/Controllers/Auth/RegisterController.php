@@ -43,7 +43,7 @@ class RegisterController extends Controller
      *
      * @param $code
      */
-    public function registrationForm($code = null): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function registrationForm($code = null): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Http\RedirectResponse
     {
         // Make sure open reg is off, invite code is not present and application signups enabled
         if ($code === 'null' && \config('other.invite-only') == 1 && \config('other.application_signups') == true) {
@@ -82,8 +82,8 @@ class RegisterController extends Controller
         $user->username = $request->input('username');
         $user->email = $request->input('email');
         $user->password = Hash::make($request->input('password'));
-        $user->passkey = \md5(\uniqid('', true).\time().\microtime());
-        $user->rsskey = \md5(\uniqid('', true).\time().\microtime().$user->password);
+        $user->passkey = \md5(\random_bytes(60).$user->password);
+        $user->rsskey = \md5(\random_bytes(60).$user->password);
         $user->uploaded = \config('other.default_upload');
         $user->downloaded = \config('other.default_download');
         $user->style = \config('other.default_style', 0);

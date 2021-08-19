@@ -22,6 +22,7 @@ class TicketSearch extends Component
     use WithPagination;
 
     public $user;
+    public $show = false;
     public $perPage = 25;
     public $search = '';
     public $sortField = 'updated_at';
@@ -37,7 +38,19 @@ class TicketSearch extends Component
         return 'vendor.pagination.livewire-pagination';
     }
 
+    final public function setPage($page): void
+    {
+        $this->page = $page;
+
+        $this->emit('paginationChanged');
+    }
+
     final public function updatingSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    final public function updatingShow(): void
     {
         $this->resetPage();
     }
@@ -47,9 +60,9 @@ class TicketSearch extends Component
         if ($this->user->group->is_modo) {
             return Ticket::query()
                 ->with(['user', 'category', 'priority'])
-                ->when($this->search, function ($query) {
-                    return $query->where('subject', 'LIKE', '%'.$this->search.'%');
-                })
+                ->when($this->show === false, fn ($query) => $query->whereNull('closed_at'))
+                ->when($this->show, fn ($query) => $query->whereNotNull('closed_at')->orWhereNull('closed_at'))
+                ->when($this->search, fn ($query) => $query->where('subject', 'LIKE', '%'.$this->search.'%'))
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage);
         }
@@ -57,9 +70,9 @@ class TicketSearch extends Component
         return Ticket::query()
             ->with(['user', 'category', 'priority'])
             ->where('user_id', '=', $this->user->id)
-            ->when($this->search, function ($query) {
-                return $query->where('subject', 'LIKE', '%'.$this->search.'%');
-            })
+            ->when($this->show === false, fn ($query) => $query->whereNull('closed_at'))
+            ->when($this->show, fn ($query) => $query->whereNotNull('closed_at')->orWhereNull('closed_at'))
+            ->when($this->search, fn ($query) => $query->where('subject', 'LIKE', '%'.$this->search.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

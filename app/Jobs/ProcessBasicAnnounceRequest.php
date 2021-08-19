@@ -101,7 +101,7 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
         $freeleechToken = FreeleechToken::where('user_id', '=', $this->user->id)->where('torrent_id', '=', $this->torrent->id)->first();
         $group = Group::whereId($this->user->group_id)->first();
 
-        if (\config('other.freeleech') == true || $this->torrent->free == 1 || $personalFreeleech || $group->is_freeleech == 1 || $freeleechToken) {
+        if (\config('other.freeleech') == 1 || $this->torrent->free == 1 || $personalFreeleech || $group->is_freeleech == 1 || $freeleechToken) {
             $modDownloaded = 0;
         } else {
             $modDownloaded = $downloaded;
@@ -126,6 +126,7 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
         $peer->left = $this->queries['left'];
         $peer->torrent_id = $this->torrent->id;
         $peer->user_id = $this->user->id;
+        //$peer->updateConnectableStateIfNeeded();
         $peer->save();
         // End Peer Update
 

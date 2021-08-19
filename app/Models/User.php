@@ -85,6 +85,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Belongs To A Internal Group.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function internal()
+    {
+        return $this->belongsTo(Internal::class, 'internal_id', 'id', 'name');
+    }
+
+    /**
      * Belongs To A Chatroom.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -848,7 +858,7 @@ class User extends Authenticatable
      */
     public function setSignatureAttribute($value)
     {
-        $this->attributes['signature'] = (new AntiXSS())->xss_clean($value);
+        $this->attributes['signature'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
@@ -861,7 +871,7 @@ class User extends Authenticatable
         $bbcode = new Bbcode();
         $linkify = new Linkify();
 
-        return $bbcode->parse($linkify->linky($this->signature), true);
+        return $linkify->linky($bbcode->parse($this->signature, true));
     }
 
     /**
@@ -873,7 +883,7 @@ class User extends Authenticatable
      */
     public function setAboutAttribute($value)
     {
-        $this->attributes['about'] = (new AntiXSS())->xss_clean($value);
+        $this->attributes['about'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
@@ -889,7 +899,7 @@ class User extends Authenticatable
         $bbcode = new Bbcode();
         $linkify = new Linkify();
 
-        return $bbcode->parse($linkify->linky($this->about), true);
+        return $linkify->linky($bbcode->parse($this->about, true));
     }
 
     /**
@@ -901,7 +911,7 @@ class User extends Authenticatable
      */
     public function getSeedbonus()
     {
-        return \number_format($this->seedbonus, 2, '.', ' ');
+        return \number_format($this->seedbonus, 0, '.', ' ');
     }
 
     /**

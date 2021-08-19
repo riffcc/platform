@@ -37,6 +37,13 @@ class WatchlistSearch extends Component
         return 'vendor.pagination.livewire-pagination';
     }
 
+    final public function setPage($page): void
+    {
+        $this->page = $page;
+
+        $this->emit('paginationChanged');
+    }
+
     final public function updatingSearch(): void
     {
         $this->resetPage();
@@ -46,9 +53,7 @@ class WatchlistSearch extends Component
     {
         return Watchlist::query()
             ->with(['user', 'author'])
-            ->when($this->search, function ($query) {
-                return $query->where('message', 'LIKE', '%'.$this->search.'%');
-            })
+            ->when($this->search, fn ($query) => $query->where('message', 'LIKE', '%'.$this->search.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

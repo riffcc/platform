@@ -95,7 +95,7 @@ class SubtitleController extends Controller
             'title'       => 'required',
             'file_name'   => 'required',
             'file_size'   => 'required',
-            'extension'   => 'required',
+            'extension'   => 'required|in:.srt,.ass,.sup,.zip',
             'language_id' => 'required',
             'user_id'     => 'required',
             'torrent_id'  => 'required',
@@ -204,7 +204,7 @@ class SubtitleController extends Controller
      *
      * @param \App\Models\Subtitle $id
      */
-    public function download(Request $request, $id): \Illuminate\Http\RedirectResponse | \Symfony\Component\HttpFoundation\BinaryFileResponse
+    public function download(Request $request, $id): \Illuminate\Http\RedirectResponse | \Symfony\Component\HttpFoundation\BinaryFileResponse | \Symfony\Component\HttpFoundation\StreamedResponse
     {
         $subtitle = Subtitle::findOrFail($id);
         $user = $request->user();

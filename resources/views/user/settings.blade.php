@@ -20,7 +20,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
         <div class="block">
             @include('user.buttons.settings')
             <div class="header gradient red">
@@ -70,11 +70,19 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="custom_css" class="control-label">External CSS Stylesheet</label>
+                                    <label for="custom_css" class="control-label">External CSS Stylesheet (Stacks on top of above theme)</label>
                                     <label>
                                         <input type="text" name="custom_css" class="form-control"
                                         value="@if ($user->custom_css) {{ $user->custom_css }}@endif"
                                             placeholder="CSS URL">
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="standalone_css" class="control-label">Standalone CSS Stylesheet (No site theme used)</label>
+                                    <label>
+                                        <input type="text" name="standalone_css" class="form-control"
+                                               value="@if ($user->standalone_css) {{ $user->standalone_css }}@endif"
+                                               placeholder="CSS URL">
                                     </label>
                                 </div>
                                 <label for="sidenav" class="control-label">Side Navigation</label>
@@ -87,7 +95,7 @@
                                         @endif value="0">Compact</label>
                                 </div>
                             </div>
-    
+
                             <div class="well">
                                 <h3>Chat</h3>
                                 <hr>
@@ -112,17 +120,13 @@
                                         @endif value="0">@lang('common.no')</label>
                                 </div>
                             </div>
-    
+
                             <div class="well">
                                 <h3>Torrent</h3>
                                 <hr>
                                 <label for="torrent_layout" class="control-label">Default Torrent Layout?</label>
                                 <select class="form-control" id="torrent_layout" name="torrent_layout">
-                                <option @if ($user->torrent_layout == 0) selected @endif value="0">Torrent List</option>
-                                <option @if ($user->torrent_layout == 1) selected @endif value="1">Torrent Grouping
-                                    </option>
-                                <option @if ($user->torrent_layout == 2) selected @endif value="2">Torrent Cards
-                                    </option>
+                                    <option @if ($user->torrent_layout == 0) selected @endif value="0">Torrent List</option>
                                 </select>
                                 <br>
                                 <label for="poster" class="control-label">Show Posters On Torrent List View?</label>

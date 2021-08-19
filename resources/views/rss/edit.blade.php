@@ -45,7 +45,7 @@
                         <input type="text" class="form-control" id="uploader" name="uploader"
                             value="{{ $rss->object_torrent->uploader }}">
                     </div>
-    
+
                     <div class="form-group">
                         <label for="imdb">IMDB ID</label>
                         <input type="text" class="form-control" id="imdb" name="imdb"
@@ -59,20 +59,20 @@
                         <label for="mal">MAL ID</label>
                         <input type="text" class="form-control" id="mal" name="mal" value="{{ $rss->object_torrent->mal }}">
                     </div>
-    
+
                     <div class="form-group">
                         <label for="category">@lang('torrent.category')</label>
                         <div>
-                            @foreach ($torrent_repository->categories() as $id => $category)
+                            @foreach ($categories as $category)
                                 <span class="badge-user">
                                     <label class="inline">
                                         @if(is_array($rss->object_torrent->categories) &&
-                                            in_array($id, $rss->object_torrent->categories, true))
-                                            <input type="checkbox" id="{{ $category }}" name="categories[]" value="{{ $id }}"
-                                                class="category" CHECKED> {{ $category }}
+                                            in_array((string)$category->id, $rss->object_torrent->categories, true))
+                                            <input type="checkbox" id="{{ $category->name }}" name="categories[]" value="{{ $category->id }}"
+                                                class="category" CHECKED> {{ $category->name }}
                                         @else
-                                            <input type="checkbox" id="{{ $category }}" name="categories[]" value="{{ $id }}"
-                                                class="category"> {{ $category }}
+                                            <input type="checkbox" id="{{ $category->name }}" name="categories[]" value="{{ $category->id }}"
+                                                class="category"> {{ $category->name }}
                                         @endif
                                     </label>
                                 </span>
@@ -82,16 +82,16 @@
                     <div class="form-group">
                         <label for="type">@lang('torrent.type')</label>
                         <div>
-                            @foreach ($torrent_repository->types() as $id => $type)
+                            @foreach ($types as $type)
                                 <span class="badge-user">
                                     <label class="inline">
                                         @if(is_array($rss->object_torrent->types) &&
-                                            in_array($id, $rss->object_torrent->types, true))
-                                            <input type="checkbox" id="{{ $type }}" name="types[]" value="{{ $id }}" class="type"
-                                                CHECKED> {{ $type }}
+                                            in_array((string)$type->id, $rss->object_torrent->types, true))
+                                            <input type="checkbox" id="{{ $type->name }}" name="types[]" value="{{ $type->id }}" class="type"
+                                                CHECKED> {{ $type->name }}
                                         @else
-                                            <input type="checkbox" id="{{ $type }}" name="types[]" value="{{ $id }}" class="type">
-                                            {{ $type }}
+                                            <input type="checkbox" id="{{ $type->name }}" name="types[]" value="{{ $type->id }}" class="type">
+                                            {{ $type->name }}
                                         @endif
                                     </label>
                                 </span>
@@ -101,15 +101,15 @@
                     <div class="form-group">
                         <label for="resolution">@lang('torrent.resolution')</label>
                         <div>
-                            @foreach ($torrent_repository->resolutions() as $id => $resolution)
+                            @foreach ($resolutions as $resolution)
                                 <span class="badge-user">
                             <label class="inline">
-                                @if(is_array($rss->object_torrent->resolutions) && in_array($id, $rss->object_torrent->resolutions, true))
-                                    <input type="checkbox" id="{{ $resolution }}" name="resolutions[]" value="{{ $id }}" class="resolution" CHECKED>
-                                    {{ $resolution }}
+                                @if(is_array($rss->object_torrent->resolutions) && in_array((string)$resolution->id, $rss->object_torrent->resolutions, true))
+                                    <input type="checkbox" id="{{ $resolution->name }}" name="resolutions[]" value="{{ $resolution->id }}" class="resolution" CHECKED>
+                                    {{ $resolution->name }}
                                 @else
-                                    <input type="checkbox" id="{{ $resolution }}" name="resolutions[]" value="{{ $id }}" class="resolution">
-                                    {{ $resolution }}
+                                    <input type="checkbox" id="{{ $resolution->name }}" name="resolutions[]" value="{{ $resolution->id }}" class="resolution">
+                                    {{ $resolution->name }}
                                 @endif
                             </label>
                         </span>
@@ -119,16 +119,16 @@
                     <div class="form-group">
                         <label for="genre">@lang('torrent.genre')</label>
                         <div>
-                            @foreach ($torrent_repository->genres() as $id => $genre)
+                            @foreach ($genres as $genre)
                                 <span class="badge-user">
                                     <label class="inline">
                                         @if(is_array($rss->object_torrent->genres) &&
-                                            in_array($genre, $rss->object_torrent->genres, true))
-                                            <input type="checkbox" id="{{ $genre }}" name="genres[]" value="{{ $genre }}"
-                                                class="genre" CHECKED> {{ $genre }}
+                                            in_array($genre->id, $rss->object_torrent->genres, true))
+                                            <input type="checkbox" id="{{ $genre->name }}" name="genres[]" value="{{ $genre->id }}"
+                                                class="genre" CHECKED> {{ $genre->name }}
                                         @else
-                                            <input type="checkbox" id="{{ $genre }}" name="genres[]" value="{{ $genre }}"
-                                                class="genre"> {{ $genre }}
+                                            <input type="checkbox" id="{{ $genre->name }}" name="genres[]" value="{{ $genre->id }}"
+                                                class="genre"> {{ $genre->name }}
                                         @endif
                                     </label>
                                 </span>
@@ -236,7 +236,7 @@
                             </span>
                         </div>
                     </div>
-    
+
                     <div class="form-group">
                         <label for="type">@lang('torrent.health')</label>
                         <div>

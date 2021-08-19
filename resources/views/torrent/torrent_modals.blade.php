@@ -43,7 +43,7 @@
 @endif
 
 <div class="modal fade" id="modal_torrent_report" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dark">
+    <div class="modal-dialog{{ \modal_style() }}">
         <div class="modal-content">
             <meta charset="utf-8">
             <title>@lang('common.report') {{ strtolower(trans('torrent.torrent')) }}: {{ $torrent->name }}</title>
@@ -79,15 +79,15 @@
                     </div>
                 </form>
             </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">@lang('common.close')</button>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-primary" type="button" data-dismiss="modal">@lang('common.close')</button>
+            </div>
         </div>
     </div>
 </div>
 
 <div class="modal fade" id="modal_torrent_delete" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dark">
+    <div class="modal-dialog{{ \modal_style() }}">
         <div class="modal-content">
             <meta charset="utf-8">
             <title>@lang('common.delete') {{ strtolower(trans('torrent.torrent')) }}: {{ $torrent->name }}</title>
@@ -120,19 +120,18 @@
                                 <input class="btn btn-danger" type="submit" value="@lang('common.delete')">
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-sm btn-default" type="button"
-                                data-dismiss="modal">@lang('common.close')</button>
-                        </div>
                     </form>
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-primary" type="button" data-dismiss="modal">@lang('common.close')</button>
             </div>
         </div>
     </div>
 </div>
 
-<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dark">
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg{{ \modal_style() }}">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -161,15 +160,15 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">@lang('common.close')</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">@lang('common.close')</button>
             </div>
         </div>
     </div>
 </div>
 
 @if ($torrent->nfo != null)
-    <div class="modal fade slideExpandUp" id="modal-10" role="dialog" aria-labelledby="Modallabel3dsign">
-        <div class="modal-dialog modal-lg modal-dark" role="document">
+    <div class="modal fade slideExpandUp" id="modal-10" role="dialog">
+        <div class="modal-dialog modal-lg{{ \modal_style() }}" role="document">
             <div class="modal-content ">
                 <div class="modal-header">
                     <h4 class="modal-title" id="Modallabel3dsign">NFO</h4>
@@ -180,7 +179,7 @@
                     </pre>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-info" data-dismiss="modal">@lang('common.close')</button>
+                    <button class="btn btn-primary" data-dismiss="modal">@lang('common.close')</button>
                 </div>
             </div>
         </div>
@@ -190,7 +189,7 @@
 <div class="modal fade" id="postpone-{{ $torrent->id }}" tabindex="-1" role="dialog" aria-hidden="true">
     <form method="POST" action="{{ route('staff.moderation.postpone') }}">
         @csrf
-        <div class="modal-dialog modal-dark">
+        <div class="modal-dialog{{ \modal_style() }}">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
@@ -217,7 +216,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-sm btn-default" data-dismiss="modal">@lang('common.close')</button>
+                    <button class="btn btn-sm btn-primary" data-dismiss="modal">@lang('common.close')</button>
                 </div>
             </div>
         </div>
@@ -227,7 +226,7 @@
 <div class="modal fade" id="reject-{{ $torrent->id }}" tabindex="-1" role="dialog" aria-hidden="true">
     <form method="POST" action="{{ route('staff.moderation.reject') }}">
         @csrf
-        <div class="modal-dialog modal-dark">
+        <div class="modal-dialog{{ \modal_style() }}">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
@@ -260,7 +259,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-sm btn-default" data-dismiss="modal">@lang('common.close')</button>
+                    <button class="btn btn-sm btn-primary" data-dismiss="modal">@lang('common.close')</button>
                 </div>
             </div>
         </div>
@@ -268,7 +267,7 @@
 </div>
 
 <div class="modal fade" id="modal_playlist_torrent" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dark">
+    <div class="modal-dialog{{ \modal_style() }}">
         <div class="modal-content">
             <div class="container-fluid">
                 <form role="form" method="POST" action="{{ route('playlists.attach') }}">
@@ -292,11 +291,11 @@
                             </label>
                         </div>
                         <div class="form-group">
-                            <input class="btn btn-primary" type="submit" value="Save">
+                            <input class="btn btn-success" type="submit" value="Save">
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+                        <button class="btn btn-sm btn-primary" type="button" data-dismiss="modal">Close</button>
                     </div>
                 </form>
             </div>

@@ -35,6 +35,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int|null                        $torrent_id
  * @property int|null                        $user_id
+ * @property bool                            $connectable
  * @property-read \App\Models\Torrent $seed
  * @property-read \App\Models\Torrent|null $torrent
  * @property-read \App\Models\User|null $user
@@ -111,5 +112,27 @@ class Peer extends Model
     public function seed()
     {
         return $this->belongsTo(Torrent::class, 'torrents.id', 'torrent_id');
+    }
+
+    /**
+     * Updates Connectable State If Needed.
+     *
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws \Exception
+     *
+     * @var resource
+     */
+    public function updateConnectableStateIfNeeded(): void
+    {
+        if (! \cache()->has('peers:connectable:'.$this->ip.'-'.$this->port.'-'.$this->agent)) {
+            $con = @fsockopen($this->ip, $this->port, $_, $_, 1);
+
+            $this->connectable = \is_resource($con);
+            \cache()->put('peers:connectable:'.$this->ip.'-'.$this->port.'-'.$this->agent, $this->connectable, now()->addDay());
+
+            if (\is_resource($con)) {
+                \fclose($con);
+            }
+        }
     }
 }

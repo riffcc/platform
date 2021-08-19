@@ -371,5 +371,7 @@
                 </div>
             </div>
         </div>
+    <div>
+        @livewire('torrent-list-search')
     </div>
 @endsection

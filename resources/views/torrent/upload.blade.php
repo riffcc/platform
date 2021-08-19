@@ -61,6 +61,23 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="nfo">NFO @lang('torrent.file') (@lang('torrent.optional'))</label>
+                        <input class="upload-form-file" type="file" accept=".nfo" name="nfo">
+                    </div>
+
+                    @php $data = App\Models\Category::where('id', '=', !empty($category_id) ? $category_id : old('category_id'))->first();@endphp
+                    @if ($data->no_meta)
+                        <div class="form-group">
+                            <label for="torrent-cover">Cover @lang('torrent.file') (@lang('torrent.optional'))</label>
+                            <input class="upload-form-file" type="file" accept=".jpg, .jpeg" name="torrent-cover">
+                        </div>
+                        <div class="form-group">
+                            <label for="torrent-banner">Banner @lang('torrent.file') (@lang('torrent.optional'))</label>
+                            <input class="upload-form-file" type="file" accept=".jpg, .jpeg" name="torrent-banner">
+                        </div>
+                    @endif
+
+                    <div class="form-group">
                         <label for="name">@lang('torrent.title')</label>
                         <label for="title"></label>
                         <input type="text" name="name" id="title" class="form-control" value="{{ !empty($title) ? $title : old('name') }}" required>
@@ -145,7 +162,14 @@
                         <div class="form-group">
                             <label for="name">IMDB ID <b>(@lang('torrent.optional'))</b></label>
                             <label>
-                                <input type="number" name="imdb" id="autoimdb" class="form-control" value="{{ !empty($imdb) ? $imdb : old('imdb') }}" required>
+                                @php $imdb_val = 0;
+                                if (!empty($imdb)) {
+                                    $imdb_val = $imdb;
+                                }
+                                if (!empty(old('imdb'))) {
+                                    $imdb_val = old('imdb');
+                                } @endphp
+                                <input type="number" name="imdb" id="autoimdb" class="form-control" value="{{ $imdb_val }}">
                             </label>
                         </div>
                     @else
@@ -206,6 +230,14 @@
                         </div>
                     @endif
 
+                    @if ($data->movie_meta || $data->tv_meta)
+                        <div class="form-group">
+                            <label for="bdinfo">BDInfo (Quick Summary)</label>
+                            <label for="upload-form-description"></label>
+                            <textarea id="upload-form-description" name="bdinfo" cols="30" rows="10" class="form-control" placeholder="Paste BDInfo Quick Summary">{{ old('bdinfo') }}</textarea>
+                        </div>
+                    @endif
+
                     <label for="anonymous" class="control-label">@lang('common.anonymous')?</label>
                     <div class="radio-inline">
                         <label><input type="radio" name="anonymous" value="1"{{ old('anonymous') ? ' checked' : '' }}>@lang('common.yes')</label>
@@ -254,6 +286,16 @@
                     @else
                         <input type="hidden" name="internal" value="0">
                     @endif
+
+                    <label for="personal_release" class="control-label">Personal Release?</label>
+                    <div class="radio-inline">
+                        <label><input type="radio" name="personal_release" value="1"{{ old('personal_release') ? ' checked' : '' }}>@lang('common.yes')</label>
+                    </div>
+                    <div class="radio-inline">
+                        <label><input type="radio" name="personal_release" value="0"{{ !old('personal_release') ? ' checked' : '' }}>@lang('common.no')</label>
+                    </div>
+
+                    <br>
 
                     @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
                         <label for="freeleech" class="control-label">@lang('torrent.freeleech')?</label>

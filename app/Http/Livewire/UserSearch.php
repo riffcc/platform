@@ -31,6 +31,13 @@ class UserSearch extends Component
         return 'vendor.pagination.livewire-pagination';
     }
 
+    final public function setPage($page): void
+    {
+        $this->page = $page;
+
+        $this->emit('paginationChanged');
+    }
+
     final public function updatingSearch(): void
     {
         $this->resetPage();
@@ -40,9 +47,7 @@ class UserSearch extends Component
     {
         return User::query()
             ->with('group')
-            ->when($this->search, function ($query) {
-                return $query->where('username', 'LIKE', '%'.$this->search.'%')->orWhere('email', 'LIKE', '%'.$this->search.'%');
-            })
+            ->when($this->search, fn ($query) => $query->where('username', 'LIKE', '%'.$this->search.'%')->orWhere('email', 'LIKE', '%'.$this->search.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

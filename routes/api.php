@@ -1,4 +1,8 @@
 <?php
+
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
+
 /*
  * NOTICE OF LICENSE
  *
@@ -20,11 +24,16 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+if (config('unit3d.proxy_scheme')) {
+    URL::forceScheme(config('unit3d.proxy_scheme'));
+}
+if (config('unit3d.root_url_override')) {
+    URL::forceRootUrl(config('unit3d.root_url_override'));
+}
 // Torrents System
-Route::group(['middleware' => 'auth:api', 'prefix' => 'torrents', 'namespace' => 'API'], function () {
-    Route::get('/', 'TorrentController@index')->name('torrents.index');
-    Route::get('/filter', 'TorrentController@filter');
-    Route::get('/{id}', 'TorrentController@show')->where('id', '[0-9]+');
-    Route::post('/upload', 'TorrentController@store');
+Route::group(['middleware' => 'auth:api', 'prefix' => 'torrents'], function () {
+    Route::get('/', [App\Http\Controllers\API\TorrentController::class, 'index'])->name('torrents.index');
+    Route::get('/filter', [App\Http\Controllers\API\TorrentController::class, 'filter']);
+    Route::get('/{id}', [App\Http\Controllers\API\TorrentController::class, 'show'])->where('id', '[0-9]+');
+    Route::post('/upload', [App\Http\Controllers\API\TorrentController::class, 'store']);
 });

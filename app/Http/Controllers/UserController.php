@@ -30,6 +30,7 @@ use App\Models\User;
 use App\Models\UserNotification;
 use App\Models\UserPrivacy;
 use App\Models\Warning;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -59,21 +60,29 @@ class UserController extends Controller
         $hitrun = Warning::where('user_id', '=', $user->id)->latest()->paginate(10);
 
         $bonupload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost');
-        $bondownload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost');
+        //$bondownload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost');
 
         //  With Multipliers
         $hisUplCre = History::where('user_id', '=', $user->id)->sum('uploaded');
         //  Without Multipliers
         $hisUpl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
-        $total = $hisUplCre - $hisUpl;
 
-        $realupload = ($user->uploaded - $bonupload) - $total;
-        $realdownload = $user->downloaded + $bondownload;
+        $defUpl = \config('other.default_upload');
+        $multiUpload = $hisUplCre - $hisUpl;
+        $manUpload = $user->uploaded - $hisUplCre - $defUpl - $bonupload;
+        $realupload = $user->getUploaded();
+
+        $hisDown = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
+        $defDown = \config('other.default_download');
+        $freeDownload = $hisDown + $defDown - $user->downloaded;
+        $realdownload = $user->getDownloaded();
 
         $invitedBy = Invite::where('accepted_by', '=', $user->id)->first();
 
         $requested = TorrentRequest::where('user_id', '=', $user->id)->count();
         $filled = TorrentRequest::where('filled_by', '=', $user->id)->whereNotNull('approved_by')->count();
+
+        $peers = Peer::where('user_id', '=', $user->id)->get();
 
         return \view('user.profile', [
             'route'        => 'profile',
@@ -83,15 +92,24 @@ class UserController extends Controller
             'history'      => $history,
             'warnings'     => $warnings,
             'hitrun'       => $hitrun,
-            'bonupload'    => $bonupload,
-            'realupload'   => $realupload,
-            'bondownload'  => $bondownload,
+
+            //'bondownload'  => $bondownload,
             'realdownload' => $realdownload,
-            'his_upl_cre'  => $hisUplCre,
+            'def_download' => $defDown,
+            'his_down'     => $hisDown,
+            'free_down'    => $freeDownload,
+
+            'realupload'   => $realupload,
+            'def_upload'   => $defUpl,
             'his_upl'      => $hisUpl,
+            'multi_upload' => $multiUpload,
+            'bonupload'    => $bonupload,
+            'man_upload'   => $manUpload,
+
             'requested'    => $requested,
             'filled'       => $filled,
             'invitedBy'    => $invitedBy,
+            'peers'        => $peers,
         ]);
     }
 
@@ -247,12 +265,21 @@ class UserController extends Controller
 
         // Style Settings
         $user->style = (int) $request->input('theme');
-        $cssUrl = $request->input('custom_css');
-        if (isset($cssUrl) && ! \filter_var($cssUrl, FILTER_VALIDATE_URL)) {
+
+        $customCss = $request->input('custom_css');
+        if (isset($customCss) && ! \filter_var($customCss, FILTER_VALIDATE_URL)) {
             return \redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.');
         }
-        $user->custom_css = $cssUrl;
+        $user->custom_css = $customCss;
+
+        $standaloneCss = $request->input('standalone_css');
+        if (isset($standaloneCss) && ! \filter_var($standaloneCss, FILTER_VALIDATE_URL)) {
+            return \redirect()->route('users.show', ['username' => $user->username])
+                ->withErrors('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.');
+        }
+        $user->standalone_css = $standaloneCss;
+
         $user->nav = $request->input('sidenav');
 
         // Torrent Settings
@@ -500,7 +527,7 @@ class UserController extends Controller
 
         \abort_unless($request->user()->id == $user->id, 403);
 
-        $user->passkey = \md5(\uniqid('', true).\time().\microtime());
+        $user->passkey = \md5(\random_bytes(60).$user->password);
         $user->save();
 
         \cache()->forget(\sprintf('user:%s', $user->passkey));
@@ -1059,7 +1086,7 @@ class UserController extends Controller
 
         \abort_unless($request->user()->id == $user->id, 403);
 
-        $user->rsskey = \md5(\uniqid('', true).\time().\microtime());
+        $user->rsskey = \md5(\random_bytes(60).$user->password);
         $user->save();
 
         return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#rid'])
@@ -1992,5 +2019,84 @@ class UserController extends Controller
         $user = $request->user();
         $user->read_rules = 1;
         $user->save();
+    }
+
+    /**
+     * Flushes own Peers.
+     *
+     * @param \App\Models\User $username
+     */
+    public function flushOwnGhostPeers(Request $request, $username): \Illuminate\Http\RedirectResponse
+    {
+        // Authorized User
+        $user = User::where('username', '=', $username)->firstOrFail();
+        \abort_unless($request->user()->id == $user->id, 403);
+
+        // Check if User can flush
+        if ($request->user()->own_flushes == 0) {
+            return \redirect()->back()->withErrors('You can only flush twice a day!');
+        }
+
+        $carbon = new Carbon();
+
+        // Get Peer List from User
+        $peers = Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->where('user_id', '=', $request->user()->id)->where('updated_at', '<', $carbon->copy()->subMinutes(70)->toDateTimeString())->get();
+
+        // Return with Error if no Peer exists
+        if ($peers->isEmpty()) {
+            return \redirect()->back()->withErrors('No Peers found! Please wait at least 70 Minutes after the last announce from the client!');
+        }
+
+        $new_value = $request->user()->own_flushes - 1;
+        User::where('username', '=', $username)->update(['own_flushes' => $new_value]);
+
+        // Iterate over Peers
+        foreach ($peers as $peer) {
+            $history = History::where('info_hash', '=', $peer->info_hash)->where('user_id', '=', $peer->user_id)->first();
+            if ($history) {
+                $history->active = false;
+                $history->save();
+            }
+            $peer->delete();
+        }
+
+        return \redirect()->back()->withSuccess('Peers were flushed successfully!');
+    }
+
+    /**
+     * Get A Users Active Table by IP and Port.
+     *
+     * @param \App\Models\User $username
+     * @param \App\Models\Peer $ip
+     * @param \App\Models\Peer $port
+     */
+    public function activeByClient(Request $request, $username, $ip, $port): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    {
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
+
+        $hisUpl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
+        $hisUplCre = History::where('user_id', '=', $user->id)->sum('uploaded');
+        $hisDownl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
+        $hisDownlCre = History::where('user_id', '=', $user->id)->sum('downloaded');
+
+        $active = Peer::with(['torrent' => function ($query) {
+            $query->withAnyStatus();
+        }])->sortable(['created_at' => 'desc'])
+            ->where('user_id', '=', $user->id)
+            ->where('ip', '=', $ip)
+            ->where('port', '=', $port)
+            ->distinct('info_hash')
+            ->paginate(50);
+
+        return \view('user.private.active', ['user' => $user,
+            'route'                                 => 'active',
+            'active'                                => $active,
+            'his_upl'                               => $hisUpl,
+            'his_upl_cre'                           => $hisUplCre,
+            'his_downl'                             => $hisDownl,
+            'his_downl_cre'                         => $hisDownlCre,
+        ]);
     }
 }

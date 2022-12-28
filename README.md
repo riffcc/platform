@@ -15,10 +15,12 @@
 5. [Security](#security)
 6. [Credits and Thanks](#thanks)
 
+## Archived
+We're no longer developing Riff.CC Alpha, this is the old codebase.
 
 ## <a name="introduction"></a>Introduction
 
-The Platform is the code that runs Riff.CC, a free culture platform for the world. It's heavily based on the [Unit3D](https://github.com/HDInnovations/UNIT3D-Community-Edition) project, to whom we owe a great deal of thanks.
+The Platform was the code that ran Riff.CC Alpha, a free culture platform for the world. It was heavily based on the [Unit3D](https://github.com/HDInnovations/UNIT3D-Community-Edition) project, to whom we owe a great deal of thanks.
 
 ## <a name="chat"></a>  💬 Come chat with us on Discord
 
